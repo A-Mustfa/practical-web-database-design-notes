@@ -24,16 +24,16 @@ This book is for you if:
 
 1. [Chapter 2: Core Database Concepts](#chapter-2-core-database-concepts)
 
-   - [Data Model](#1-data-model)
-   - [Relational Model](#2-relational-model)
-   - [Domains & Data Types](#3-domains-&-data-types)
-   - [Missing Data: NULLs](#4-Missing-Data:-NULLs)
-   - [Primary Key](#5-primary-key-(PK))
-   - [Foreign Key](#6-foreign-key-(FK))
-   - [Normalization](#7-Normalization)
-   - [Data Integrity](#8-data-integrity)
-   - [Metadata & Data Dictionary](#9-metadata-&-data-dictionary)
-   - [Physical Data Access Models](#10-physical-data-access-models)
+   - [1. Data Model](#1-data-model)
+   - [2. Relational Model](#2-relational-model)
+   - [3. Domains & Data Types](#3-domains--data-types)
+   - [4. Missing Data: NULLs](#4-missing-data-nulls)
+   - [5. Primary Key](#5-primary-key)
+   - [6. Foreign Key](#6-foreign-key)
+   - [7. Normalization](#7-normalization)
+   - [8. Data Integrity](#8-data-integrity)
+   - [9. Metadata & Data Dictionary](#9-metadata--data-dictionary)
+   - [10. Physical Data Access Models](#10-physical-data-access-models)
 
 2. [Chapter 3: Creating and Using Relational Databases with SQL](#chapter-3-creating-and-using-relational-databases-with-sql)
 
@@ -107,13 +107,13 @@ This book is for you if:
 
 ---
 
-### 5. Primary Key (PK)
+### 5. Primary Key
 - Unique identifier for each row (one or more columns).
 - **Properties:** Not null, not duplicated, immutable.
 
 ---
 
-### 6. Foreign Key (FK)
+### 6. Foreign Key
 - Column(s) referring to another table's PK.
 - Used to **create relationships** between tables.
 - Must match an existing PK value or be NULL.
