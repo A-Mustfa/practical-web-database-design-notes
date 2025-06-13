@@ -18,6 +18,8 @@ This book is for you if:
 - You’re new to databases but want to use them on your website.
 - You’ve worked with web databases but want to improve performance and design.
 
+- if you want notes in more details you can find them [here](/files/Practical-Web-Database-Design.pdf)
+
 ---
 
 ## 📚 Table of Contents
