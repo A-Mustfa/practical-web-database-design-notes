@@ -36,18 +36,18 @@ This book is for you if:
 
 2. [Chapter 3: Creating and Using Relational Databases with SQL](#chapter-3-creating-and-using-relational-databases-with-sql)
    - [What is SQL?](#what-is-sql)
-   - [DDL, DML, DCL](#syntax-components)
-   - [Create Table](#create-table)
-   - [SQL-92 Data Types](#sql-92-data-types)
-   - [Constraints (Column & Table)](#column--table-constraint)
+   - [DDL, DML, DCL](#SQL-Syntax-Components)
+   - [Create Table](#creating-table)
+   - [SQL-92 Data Types](#sql-data-types)
+   - [Constraints (Column & Table)](#constraints)
    - [DROP, ALTER Table](#drop-table--alter-table)
    - [Create & Drop Index](#create--drop-index)
    - [CRUD: INSERT, UPDATE, DELETE](#crud-operations)
    - [WHERE Clause](#-where-in-sql)
    - [SELECT Basics & Best Practices](#-querying-in-sql-select)
    - [JOINS](#joins)
-   - [ORDER BY & DISTINCT](#-reporting-with-sql-key-features)
    - [Aggregates & Grouping](#-aggregation-in-sql--grouping)
+   - [Reporting](#-reporting-with-sql-key-features)
    - [Extra Notes & Best Practices](#extra-notes--best-practices)
 
 ---
