@@ -184,7 +184,6 @@ Once the structure is defined, we must choose **appropriate data types** and det
 > * datetime is not part of standard SQL, but widely supported by systems like SQL Server and MySQL.
 > * Use date and time when the separation is needed for portability. 
 
----
 
 &nbsp;&nbsp;
 
@@ -260,4 +259,47 @@ Common auto-increment mechanisms:
 >  
 > 🚫 Rule of thumb: **Don’t expose surrogate keys** to users — they carry no business meaning.
 
+
+---
+### 6️⃣ Relational Integrity Rule
+
+![After transformation transformation.](/summaries/ch-6/imgs/customer-order-1toM.jpg)
+
+The database enforces that:
+- **Every `ordcustID` must match a valid `custID`**
+- **No order can exist without a known customer**
+
+This means:
+- A **customer must be inserted first** before adding their order
+- An order row **cannot reference a customer** that does not exist
+
+> ⚠️ Even if a form allows entering customer and order details at once, the backend must insert the customer first, then the order.
+
 &nbsp;
+
+### ❓ Can a Foreign Key Be Null?
+
+Yes — in cases where the relationship is **optional**.
+
+Example:
+- A product may have an optional `SupplierID` — if no supplier exists yet, it can be `NULL`.
+
+But in our case:
+- `ordcustID` must **not be null**
+- Every order must belong to a customer
+
+&nbsp;
+
+### 🧯 Deletion & Integrity
+
+Relational integrity **prevents deletion of referenced rows**.
+
+If:
+- A `Customer` row is referenced by any `Order` (via `ordcustID`),
+
+Then:
+- That `Customer` **cannot be deleted**
+
+> 🛡️ This protects against "dangling references" where a foreign key points to a non-existent row.
+
+---
