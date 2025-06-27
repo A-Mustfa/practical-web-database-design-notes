@@ -106,8 +106,10 @@ When transforming the conceptual model to a physical one, it’s essential to id
 
 - A product can belong to multiple categories.
 - A category can contain multiple products.
-- This is a **many-to-many** relationship.  
+- This is a **many-to-many** relationship.
+
 ✅ Create an associative entity named: **ProductCategory**
+
 ![Product–Category transformation.](/summaries/ch-6/imgs/ERD-2.jpg)
 
 - **Product → ProductCategory**: one-to-many
