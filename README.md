@@ -72,6 +72,24 @@ This book is for you if:
      - [DISTINCT](#distinct)
    - [Real-World Tips](#real-world-tips)
 
+5. [Chapter 6: Implementing the Database](/summaries/ch-6/notes/chapter-6-notes.md)
+   - [1. Target Database System](/summaries/ch-6/notes/chapter-6-notes.md#1️⃣-target-database-system)
+   - [2. Naming Conventions](/summaries/ch-6/notes/chapter-6-notes.md#2️⃣-naming-conventions)
+   - [3. Associative Entities for Many-to-Many Relationships](/summaries/ch-6/notes/chapter-6-notes.md#3️⃣-associative-entities-for-many-to-many-relationships)
+   - [4. Data Types and Nullability](/summaries/ch-6/notes/chapter-6-notes.md#4️⃣-data-types-and-nullability)
+   - [5. Natural vs. Surrogate Primary Keys](/summaries/ch-6/notes/chapter-6-notes.md#5️⃣-natural-vs-surrogate-primary-keys)
+   - [6. Foreign Keys and Relational Integrity](/summaries/ch-6/notes/chapter-6-notes.md#6️⃣-relational-integrity-rule)
+   - [7. Table and Column Definitions](/summaries/ch-6/notes/chapter-6-notes.md#7️⃣-table-and-column-definitions--product-table)
+     - [7.1 Table Product](/summaries/ch-6/notes/chapter-6-notes.md#-table-product)
+     - [7.2 Table Category](/summaries/ch-6/notes/chapter-6-notes.md#-table-category)
+     - [7.3 Table ProductCategory](/summaries/ch-6/notes/chapter-6-notes.md#-table-productcategory)
+     - [7.4 Table Customer](/summaries/ch-6/notes/chapter-6-notes.md#-table-customer)
+     - [7.5 Table Orders](/summaries/ch-6/notes/chapter-6-notes.md#-table-orders)
+     - [7.6 Table OrderItem](/summaries/ch-6/notes/chapter-6-notes.md#-table-orderitem)
+     - [7.6 Overall database scheme](/summaries/ch-6/notes/chapter-6-notes.md#-overall-database-scheme-)
+   - [8. Database Indexes](/summaries/ch-6/notes/chapter-6-notes.md#8️⃣-database-indexes)
+   - [9. Sample DDL](/summaries/ch-6/notes/chapter-6-notes.md#9️⃣-sql-ddl-example-table-creation-and-indexing)
+   - [10. Sample SQL](/summaries/ch-6/notes/chapter-6-notes.md#-sample-sql--search-for-products)
 ---
 
 ## Chapter 2: Core Database Concepts
