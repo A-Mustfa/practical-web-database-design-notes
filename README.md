@@ -89,7 +89,7 @@ This book is for you if:
      - [7.6 Overall database scheme](/summaries/ch-6/notes/chapter-6-notes.md#-overall-database-scheme-)
    - [8. Database Indexes](/summaries/ch-6/notes/chapter-6-notes.md#8️⃣-database-indexes)
    - [9. Sample DDL](/summaries/ch-6/notes/chapter-6-notes.md#9️⃣-sql-ddl-example-table-creation-and-indexing)
-   - [10. Sample SQL](/summaries/ch-6/notes/chapter-6-notes.md#-sample-sql)
+   - [10. Sample SQL](/summaries/ch-6/notes/chapter-6-notes.md#-sample-sql--search-for-products)
 ---
 
 ## Chapter 2: Core Database Concepts
