@@ -8,16 +8,16 @@ In this chapter, we take the **conceptual design** of the database and extend it
 
 To transform a conceptual design into a working physical database, we must consider:
 
-1. Target Database System
-2. Naming Conventions
-3. Associative Entities for Many-to-Many Relationships
-4. Data Types and Nullability
-5. Natural vs. Surrogate Primary Keys
-6. Foreign Keys and Relational Integrity
-7. Table and Column Definitions
-8. Database Indexes
-9. Sample DDL
-10. Sample SQL
+1.  [Target Database System](#1️⃣-target-database-system)
+2.  [Naming Conventions](#2️⃣-naming-conventions)
+3.  [Associative Entities for Many-to-Many Relationships](#3️⃣-associative-entities-for-many-to-many-relationships)
+4.  [Data Types and Nullability](#4️⃣-data-types-and-nullability)
+5.  [Natural vs. Surrogate Primary Keys](#5️⃣-natural-vs-surrogate-primary-keys)
+6.  [Foreign Keys and Relational Integrity](#6️⃣-relational-integrity-rule)
+7.  [Table and Column Definitions](#7️⃣-table-and-column-definitions)
+8.  [Database Indexes](#8️⃣-database-indexes)
+9.  [Sample DDL](#9️⃣-sql-ddl-example-table-creation-and-indexing)
+10. [Sample SQL](#-sample-sql--search-for-products)
 
 ---
 
@@ -45,7 +45,7 @@ These decisions affect deployment and design steps like:
 
 While naming conventions may not significantly affect system functionality, they **enhance clarity**, **collaboration**, and **maintenance**.
 
-###  Table Names
+##  Table Names
 
 Some common conventions include:
 
@@ -58,7 +58,7 @@ Some common conventions include:
 - Use meaningful, **singular** table names (e.g., `Product`, `Category`, `Customer`)
 - **Avoid reserved keywords** by using modified names like `Orders` or `OrderDetails`
 
-###  Column Names
+##  Column Names
 
 - Start with attribute names used in the conceptual design.
 - **Avoid reserved keywords** (`Date`, `Order`, etc.).
