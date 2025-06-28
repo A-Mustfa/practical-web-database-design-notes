@@ -21,7 +21,7 @@ To transform a conceptual design into a working physical database, we must consi
 
 ---
 
-## 1️⃣ Target Database System
+# 1️⃣ Target Database System
 
 When setting up a web application, decisions are made early about:
 
@@ -41,7 +41,7 @@ These decisions affect deployment and design steps like:
 
 ---
 
-## 2️⃣ Naming Conventions
+# 2️⃣ Naming Conventions
 
 While naming conventions may not significantly affect system functionality, they **enhance clarity**, **collaboration**, and **maintenance**.
 
@@ -96,13 +96,13 @@ WHERE Customer.City = 'Eureka';
 
 ---
 
-## 3️⃣ Associative Entities for Many-to-Many Relationships
+# 3️⃣ Associative Entities for Many-to-Many Relationships
 
 When transforming the conceptual model to a physical one, it’s essential to identify **many-to-many relationships** and resolve them by introducing **associative entities**.
 
 ![Conceptual model before transformation.](/summaries/ch-6/imgs/ERD-1.jpg)
 
-### 🧩 Example 1: Product–Category
+## 🧩 Example 1: Product–Category
 
 - A product can belong to multiple categories.
 - A category can contain multiple products.
@@ -117,7 +117,7 @@ When transforming the conceptual model to a physical one, it’s essential to id
 
 This enables a flexible many-to-many mapping between `Product` and `Category`.
 
-### 🧩 Example 2: Product–Order
+## 🧩 Example 2: Product–Order
 ![Product–Order transformation.](/summaries/ch-6/imgs/ERD-3.jpg)
 
 - A single order can include multiple products.
@@ -134,11 +134,11 @@ After adding these associative entities, the **updated physical model** includes
 
 ---
 
-## 4️⃣ Data Types and Nullability
+# 4️⃣ Data Types and Nullability
 
 Once the structure is defined, we must choose **appropriate data types** and determine **whether columns can be null**.
 
-### 🔠 Character Data Types
+## 🔠 Character Data Types
 
 | Data Type | Description | Size Defined By User | Storage(Bytes) | Fixed/Variable | Usage Example | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -154,7 +154,7 @@ Once the structure is defined, we must choose **appropriate data types** and det
 
 &nbsp;&nbsp;&nbsp;
 
-### 🔢 Numeric Data Types
+## 🔢 Numeric Data Types
 | Data Type | Description | Bytes | Value Range| Fractional Support | SQL Standard | Notes |
 | --- | --- | --- | --- | :---: | :---: | --- |
 | `tinyint` | Very small integer | 1 | -128 to 127 | ❌ | ❌ | Not standard; use with caution (low portability) | 
@@ -173,7 +173,7 @@ Once the structure is defined, we must choose **appropriate data types** and det
 
 &nbsp;&nbsp;&nbsp;
 
-### 🕒 Date and Time Data Types
+## 🕒 Date and Time Data Types
 | Data Type | Description | Format Example | SQL Standard | Notes |
 | --- | --- | :---: | :---: | :---: |
 | `date` | Calendar date only | `2025-06-27` | ✅  | Stores year-month-day | 
@@ -187,7 +187,7 @@ Once the structure is defined, we must choose **appropriate data types** and det
 
 &nbsp;&nbsp;
 
-### 🚫 Nullability
+## 🚫 Nullability
 
 **Null** = "no value" or "value unknown"
 
@@ -207,9 +207,9 @@ When designing columns:
 - Queries may behave differently if null checks aren’t handled properly.
 
 ---
-## 5️⃣ Natural vs. Surrogate Primary Keys
+# 5️⃣ Natural vs. Surrogate Primary Keys
 
-### 🔑 What is a Primary Key?
+## 🔑 What is a Primary Key?
 
 A primary key must:
 1. Be **unique** for each row.
@@ -219,7 +219,7 @@ A primary key must:
 
 &nbsp;
 
-###  Natural Primary Key
+##  Natural Primary Key
 
 A **natural key** uses one or more existing attributes from the real-world entity you're modeling.
 
@@ -235,7 +235,7 @@ A **natural key** uses one or more existing attributes from the real-world entit
 
 &nbsp;
 
-###  Surrogate Primary Key
+##  Surrogate Primary Key
 
 A **surrogate key** is an artificial column added to a table to uniquely identify rows.
 
@@ -261,7 +261,7 @@ Common auto-increment mechanisms:
 
 
 ---
-### 6️⃣ Relational Integrity Rule
+# 6️⃣ Relational Integrity Rule
 
 ![After transformation transformation.](/summaries/ch-6/imgs/customer-order-1toM.jpg)
 
@@ -304,11 +304,11 @@ Then:
 
 ---
 
-## 7️⃣ Table and Column Definitions 
+# 7️⃣ Table and Column Definitions 
 
 Below is the schema definition for the tables in the database. It includes data types, nullability, and brief descriptions of each column.
 
-### 📋 Table: `Product`
+## 📋 Table: `Product`
 
 | Column          | Data Type        | Nullability | PK  | FK  | Description                                                                 |
 |------------------|------------------|-------------|-----|-----|------------------------------------------------------------------------------|
@@ -348,7 +348,7 @@ Below is the schema definition for the tables in the database. It includes data 
 &nbsp;
 
 
-### 📋 Table: `Category`
+## 📋 Table: `Category`
 
 | Column         | Data Type      | Nullability   | PK  | FK  | Description                                                                 |
 |----------------|----------------|---------------|-----|-----|-----------------------------------------------------------------------------|
@@ -372,7 +372,7 @@ Below is the schema definition for the tables in the database. It includes data 
 
 &nbsp;
 
-### 📋 Table: `ProductCategory`
+## 📋 Table: `ProductCategory`
 
 | Column             | Data Type     | Nullability   | PK  | FK  | Refers To          | Description                                                                 |
 |--------------------|---------------|---------------|-----|-----|---------------------|-----------------------------------------------------------------------------|
@@ -400,7 +400,7 @@ Below is the schema definition for the tables in the database. It includes data 
 &nbsp;
 
 
-### 📋 Table: `Customer`
+## 📋 Table: `Customer`
 
 | Column         | Data Type       | Nullability   | PK  | FK  | Refers To | Description                                                               |
 |----------------|-----------------|---------------|-----|-----|-----------|---------------------------------------------------------------------------|
@@ -436,7 +436,7 @@ Below is the schema definition for the tables in the database. It includes data 
 
 &nbsp;
 
-### 📋 Table: `Orders`
+## 📋 Table: `Orders`
 
 | Column         | Data Type       | Nullability   | PK  | FK  | Refers To        | Description                                                                   |
 |----------------|------------------|---------------|-----|-----|------------------|-------------------------------------------------------------------------------|
@@ -465,7 +465,7 @@ Below is the schema definition for the tables in the database. It includes data 
 
 &nbsp;
 
-### 📋 Table: `OrderItem`
+## 📋 Table: `OrderItem`
 
 | Column             | Data Type       | Nullability   | PK  | FK  | Refers To        | Description                                                                 |
 |--------------------|------------------|---------------|-----|-----|------------------|-----------------------------------------------------------------------------|
@@ -489,7 +489,7 @@ Below is the schema definition for the tables in the database. It includes data 
 
 &nbsp;
 
-### 📋 Overall Database scheme :
+## 📋 Overall Database scheme :
 ![Overall Database scheme.](/summaries/ch-6/imgs/overall-database.jpg)
 
 ---
@@ -498,9 +498,9 @@ Below is the schema definition for the tables in the database. It includes data 
 
 Indexes improve the efficiency of **read operations** in a relational database. They work like a sorted lookup table, allowing the database engine to **quickly locate rows** based on specific column values.
 
----
 
-### 🔑 When to Use Indexes
+
+## 🔑 When to Use Indexes
 
 There are two common categories of columns that benefit from indexes:
 
@@ -508,9 +508,9 @@ There are two common categories of columns that benefit from indexes:
 - ✅ **Foreign Keys** — should be indexed **if they are used in joins or frequent lookups**.
 - ✅ **Other Columns** — index if used in `WHERE`, `JOIN`, or `ORDER BY`.
 
----
 
-### 🧠 How SQL Queries Are Executed
+
+## 🧠 How SQL Queries Are Executed
 
 While SQL is written like:
 
@@ -529,7 +529,7 @@ The actual logical execution order is:
 > ✅ However, optimizers may apply filters early (e.g., filter CustCity) if an index exists—this improves performance significantly.
 
 &nbsp;
-### 🔍 Sample Query and Index Use
+## 🔍 Sample Query and Index Use
 ```sql
 SELECT CustID, CustName, ProdID, ProdName
 FROM Customer
@@ -550,7 +550,7 @@ To optimize this query:
 
 &nbsp;
 
-### 🧩 Composite Primary Keys and Indexes
+## 🧩 Composite Primary Keys and Indexes
 A composite primary key (e.g., `PRIMARY KEY (OrderID, ProductID)`) acts like a two-level sort:
 
 * First sorted by `OrderID`
@@ -578,7 +578,7 @@ WHERE ProductID = 'X01'
 
 &nbsp;
 
-### 🛠 Indexing Strategy for Composite Keys
+## 🛠 Indexing Strategy for Composite Keys
 If the second column in a composite PK is used frequently on its own, create a separate index:
 
 ```sql
@@ -605,7 +605,7 @@ This improves performance when `ProductID` is queried without `OrderID`.
 
 ---
 
-## 9️⃣ SQL DDL Example: Table Creation and Indexing
+# 9️⃣ SQL DDL Example: Table Creation and Indexing
 
 This section illustrates how to use **SQL Data Definition Language (DDL)** to declare tables and indexes.
 
@@ -643,7 +643,7 @@ CREATE TABLE OrderItem (
 
 &nbsp;
 
-### 🔍 Add Index on Second Column of Composite Key
+## 🔍 Add Index on Second Column of Composite Key
 ```sql
 CREATE INDEX OrdItemProdIndex
 ON OrderItem (OrdItemProdID);
@@ -673,7 +673,7 @@ ON OrderItem (OrdItemProdID);
 
 ---
 
-## 🔟 Sample SQL : Search for Products
+# 🔟 Sample SQL : Search for Products
 
 ### Overview
 This section explains how to implement a search functionality for an e-commerce website, enabling users to search for products based on a term they enter, such as "T-shirt". The system retrieves relevant product details based on the search input.
