@@ -17,7 +17,7 @@ This section highlights best practices and strategies for protecting your databa
 2. **Authentication Method** – How will they log in?
 3. **Access Level** – What can each user or role do (read/insert/update/delete)?
 
----
+
 
 ## 👥 Identifying Your Target Audience
 
@@ -34,7 +34,7 @@ This section highlights best practices and strategies for protecting your databa
 - Don’t forget **admins**, **automated jobs**, or **backend services**.
 - Only grant permissions necessary for each user's job.
 
----
+
 
 ## 🔑 Choosing an Authentication Method
 
@@ -71,7 +71,7 @@ This section highlights best practices and strategies for protecting your databa
 
 Once your database schema is defined, it's important to control how data is accessed based on the application's needs and security requirements.
 
----
+
 
 ### 🎯 Understand the Data Access Scenarios
 
@@ -85,7 +85,7 @@ In most applications (e.g., e-commerce), different parts of the user flow requir
 
 > 🧠 Most traffic involves **reading** data. Write operations are typically limited to specific workflows like checkout or admin actions.
 
----
+
 
 ### 🛡️ Best Practice: Use Two Separate Logins
 
@@ -98,7 +98,7 @@ Using **separate database logins** based on access needs helps reduce risk.
 
 > ⚠️ Avoid using a single login with full privileges throughout the application.
 
----
+
 
 ### 🧩 Why Two Logins?
 
@@ -107,7 +107,7 @@ Using **separate database logins** based on access needs helps reduce risk.
 - ✅ **Enhances control** over what parts of the site perform write operations.
 - 🚫 Using one login with all permissions increases the **attack surface**.
 
----
+
 
 ### 🔧 Implementation Tip
 
