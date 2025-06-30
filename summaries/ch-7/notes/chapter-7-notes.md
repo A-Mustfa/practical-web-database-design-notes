@@ -18,6 +18,7 @@ This section highlights best practices and strategies for protecting your databa
 3. **Access Level** – What can each user or role do (read/insert/update/delete)?
 
 
+&nbsp;
 
 ## 👥 Identifying Your Target Audience
 
@@ -35,6 +36,8 @@ This section highlights best practices and strategies for protecting your databa
 - Only grant permissions necessary for each user's job.
 
 
+
+&nbsp;
 
 ## 🔑 Choosing an Authentication Method
 
@@ -65,6 +68,9 @@ This section highlights best practices and strategies for protecting your databa
 - ✅ Prefer **Windows Authentication** for internal use.
 - ✅ Use **SQL Authentication** (or database-defined users) for web apps or external services.
 - ⚠️ Avoid exposing system accounts or OS-level credentials to public applications.
+
+
+&nbsp;
 
 
 ## 🔍 Identifying the Type of Data Access Needed
