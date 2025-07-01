@@ -94,6 +94,8 @@ This book is for you if:
 6. [Chapter 7: Database Security](/summaries/ch-7/notes/chapter-7-notes.md)
    - [1. Designing a Security Model](/summaries/ch-7/notes/chapter-7-notes.md#1️⃣-designing-a-security-model)
    - [2. Defining Users and Groups](/summaries/ch-7/notes/chapter-7-notes.md#2️⃣-defining-users-and-groups)
+   - [3. Securing Your Database](/summaries/ch-7/notes/chapter-7-notes.md#3️⃣-securing-your-database)
+
 
 
      
