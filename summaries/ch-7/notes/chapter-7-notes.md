@@ -428,7 +428,7 @@ Views act like virtual tables — usually used for **displaying or filtering dat
 
 &nbsp;
 
-## 🔁 Summary
+### 🔁 Summary
 
 | Topic                    | Best Practice Summary                                                  |
 |--------------------------|------------------------------------------------------------------------|
@@ -472,7 +472,7 @@ To save time and improve security during development:
 &nbsp;
 
 
-## 🧾 Examples of Common Permission Assignments
+### 🧾 Examples of Common Permission Assignments
 
 > ⚠️ These are only comments, not actual code blocks:
 
@@ -501,3 +501,514 @@ Just like you can grant access, you can revoke it later when no longer needed:
 
 > 🔐 Assigning and revoking permissions is a continuous task. The sooner you integrate it into your development workflow, the safer your database will be.
 
+&nbsp;
+
+# ⚠️ Inline SQL and the Danger of SQL Injection
+
+Inline SQL refers to dynamically building SQL statements directly in your application code using user input. While easy to implement, **inline SQL can be extremely dangerous** if not properly handled.
+
+&nbsp;
+
+
+## 💡 What Is Inline SQL?
+
+Inline SQL involves constructing SQL commands as plain text inside application code. This often uses string concatenation with user input.
+
+Example (VBScript):
+
+```plaintext
+        strSQL = "SELECT * FROM Users WHERE LoginName = '" & Request.Form("txtLogin") & "';"
+    objRS.Open strSQL, objConn, adOpenForwardOnly, adLockReadOnly, adCmdText
+```
+
+&nbsp;
+
+## ❌ Risk: SQL Injection
+
+**SQL Injection** occurs when an attacker inserts malicious SQL code into a form field or URL to manipulate the query being executed.
+
+### 🚨 Malicious Input:
+
+    foo'; DROP TABLE users --
+
+The resulting SQL becomes:
+
+    SELECT * FROM Users WHERE LoginName = 'foo'; DROP TABLE users --';
+
+- `';` ends the original query.
+- `DROP TABLE users` executes as a second query.
+- `--` comments out the trailing quote, preventing syntax errors.
+
+&nbsp;
+
+
+## 🔥 What Could Happen?
+
+- If your database connection uses a login with administrative privileges, critical tables like `users` can be deleted without warning.
+- No error messages may be shown — the attack succeeds silently.
+
+&nbsp;
+
+## ✅ Best Practices
+
+- **NEVER** build SQL queries using direct user input without sanitization.
+- **ALWAYS** validate and sanitize all user input.
+- Use **parameterized queries** or **stored procedures** instead.
+- Ensure that the database login used by your application has **only the permissions it needs**.
+
+Example attack-resistant code (conceptual):
+
+    cmd.CommandText = "SELECT * FROM Users WHERE LoginName = ?"
+    cmd.Parameters.Add(new SqlParameter("@login", Request.Form("txtLogin")))
+
+&nbsp;
+
+
+> [!NOTE] 
+> By avoiding inline SQL with unsanitized inputs, you protect your application from SQL injection vulnerabilities and ensure better security practices in your codebase.
+ 
+
+&nbsp;
+
+# 🛡️ Ways to Stop Inline SQL Abuse
+
+Inline SQL makes applications vulnerable to SQL injection attacks if not handled carefully. Below are important practices every developer should follow to minimize risk.
+
+&nbsp;
+
+## 🚫 Never Use Admin Privileges from Web Pages
+
+- Web applications should **never use a login with administrative privileges**.
+- Instead, use a login with the **minimum required permissions**, ideally:
+  - **Read-only access** for most user-facing operations.
+  - Separate logins for read, write, and update operations as needed.
+
+> ✅ A login with read-only access **cannot drop tables or update/delete data**, reducing the risk of damage from attacks.
+
+&nbsp;
+
+## ✅ Always Validate User Input (Server-Side)
+
+Perform validation on the **server** (not just on the client):
+
+- **Validate data type**  
+  Ensure numeric fields receive numbers, dates receive valid date formats, etc.
+
+- **Validate data length**  
+  Enforce maximum allowed length for each input field (e.g., 12 characters).
+
+- **Escape special characters**  
+  Especially escape single quotes `'` to avoid breaking query syntax.
+
+- **Check for SQL keywords and symbols**  
+  Block suspicious inputs that contain:
+  - Semicolons `;`
+  - Keywords like `DROP TABLE`, `DELETE`, or known table names.
+
+&nbsp;
+
+## ❌ Avoid Exposing Internal Error Messages
+
+- **Never return raw database error messages** to the user.
+- Raw errors can expose:
+  - Table names
+  - Query structure
+  - Internal logic
+
+## 🔧 Best Practice:
+- Handle known errors and return **friendly messages**.
+- For unexpected errors, return a **generic fallback error**.
+- For debugging, use a **logging mechanism** to store detailed errors in a secure log file (not shown to users).
+
+
+&nbsp;
+## 🧩 Use Stored Procedures
+
+> **Stored procedures are safer than inline SQL** and should be preferred whenever possible.
+
+- They reduce exposure to SQL injection.
+- They execute faster.
+- Less data is transmitted over the network.
+- Parameters are automatically type-checked and escaped by the database engine.
+
+
+
+### ✅ Summary: Best Practices
+
+- Use **least-privilege** database logins.
+- **Validate** and **sanitize** all user input.
+- Avoid inline SQL wherever possible.
+- **Use stored procedures** for data access.
+- Implement proper **error handling** and logging.
+
+
+
+> Protecting your application starts with responsible coding. Follow these principles to make SQL injection nearly impossible.
+
+&nbsp;
+
+
+# 🧩 Stored Procedures and SQL Injection Protection
+
+Stored procedures help secure database operations, but **they are not immune to SQL injection** if misused. The way you invoke them in your application code makes all the difference.
+
+&nbsp;
+
+### ⚠️ Example of a Vulnerable Stored Procedure Call
+
+If you execute a stored procedure using `adCmdText`, the command is treated as **raw inline SQL**, making it vulnerable to SQL injection.
+
+```vb
+ strSQL = "exec usp_parmsel_login '" & Request.Form("txtLogin") & "'"
+ objRS.Open strSQL, objConn, adOpenForwardOnly, adLockReadOnly, adCmdText
+```
+
+**What a hacker can inject:**
+```plaintext
+foo'; drop table users --
+```
+
+This results in:
+```sql
+ exec usp_parmsel_login 'foo'; drop table users --'
+```
+
+✅ The procedure executes... but so does the malicious `DROP TABLE` statement.
+
+
+
+### ✅ Safer: Use `adCmdStoredProc`
+
+Updating the command type helps prevent SQL injection by enforcing stored procedure execution:
+
+```vb
+ strSQL = "exec usp_parmsel_login '" & Request.Form("txtLogin") & "'"
+ objRS.Open strSQL, objConn, adOpenForwardOnly, adLockReadOnly, adCmdStoredProc
+```
+
+The database treats it as a **stored procedure**, not plain SQL, and performs validations.
+
+&nbsp;
+
+### 🔒 Even Better: Use Parentheses Around Parameters
+
+```vb
+ strSQL = "usp_parmsel_login ('" & Request.Form("txtLogin") & "')"
+ objRS.Open strSQL, objConn, adOpenForwardOnly, adLockReadOnly, adCmdStoredProc
+```
+
+This extra layer of syntax structure makes injection harder. Even with `adCmdText`, invalid syntax will likely raise an error.
+
+&nbsp;
+
+## 🔐 Best Practice: Use ADO Command Object with Parameters
+
+This is the **safest and most recommended** way to execute stored procedures.
+
+```vb
+ objCmd.CommandText = "usp_parmsel_login"
+ objCmd.CommandType = adCmdStoredProc  
+ objCmd.Parameters.Append objCmd.CreateParameter("LoginName", adVarChar, _  
+ adParamInput, 20, Request.Form("txtLogin"))  
+ Set objRS = objCmd.Execute
+```
+
+### 🛡️ Benefits of Using Parameterized Stored Procedures:
+
+- Prevents SQL injection by escaping characters like `'`
+- Validates the length and data type of parameters
+- Ensures procedures behave as expected
+
+
+
+### ✅ Final Advice
+
+- **Always perform server-side validation** of user input.
+- Validate:
+  - ✅ Type: is the input numeric, string, etc.?
+  - ✅ Length: is it within allowed character limits?
+  - ✅ Content: block suspicious patterns like `DROP TABLE`, `;`, etc.
+- **Use stored procedures with command objects** whenever possible.
+- **Never assume built-in protections are enough**—layer your security.
+
+
+
+Using stored procedures properly can **significantly reduce attack surfaces** and make your application more robust and secure.
+
+
+&nbsp;
+
+## ⚠️ Error Handling in Database Applications
+
+Poor error handling can unintentionally expose sensitive information about your database schema, making it easier for attackers to exploit your system.
+
+&nbsp;
+
+# ❌ Example of Bad Error Handling
+
+This approach displays raw error messages to the user, potentially leaking database structure details:
+
+```vb
+ Dim objErr As ADODB.Error  
+ For Each objErr In objConn.Errors  
+ MsgBox objErr.Description  
+ Next
+```
+
+&nbsp;
+
+### ❗ Why This Is Dangerous
+
+Suppose you have two tables: `Employees` and `Payroll`, linked by a foreign key. Inserting data incorrectly might return:
+
+```sql
+INSERT Statement conflicted with COLUMN FOREIGN KEY constraint 'FK_Employees_Payroll'.  
+The conflict occurred in database 'TestDB', table 'Payroll', column 'PayrollID'.
+```
+
+Or:
+
+```sql
+ Violation of PRIMARY KEY constraint 'PK_Employees'.  
+ Cannot insert duplicate key in object 'Employees'.
+```
+
+These messages **expose database names, table names, and constraint names**—all useful to a hacker.
+
+&nbsp;
+
+### ✅ Best Practice: Handle Known Errors Gracefully
+
+Catch specific errors using `NativeError` codes and show friendly, non-technical messages to users. Log the actual details privately for debugging:
+
+```vb
+ For Each objErr In objConn.Errors  
+ Select Case objErr.NativeError  
+ Case 2627 'Violation of PRIMARY KEY constraint  
+ LogError (objErr.Description)  
+ MsgBox "An employee already exists with the ID specified"  
+ Case 547 'INSERT statement conflicted with FOREIGN KEY constraint  
+ LogError (objErr.Description)  
+ MsgBox "A payroll record already exists with the ID specified"  
+ Case Else  
+ LogError (objErr.Description)  
+ MsgBox "Unexpected database error, please contact support"  
+ End Select  
+ Next
+```
+
+&nbsp;
+
+### 🔐 Summary
+
+- Never expose raw error messages directly to users  
+- Catch and interpret known errors where possible  
+- Log detailed errors internally for debugging  
+- Show friendly, high-level messages to end users  
+
+> ✅ Secure error handling = better UX and safer databases
+
+
+---
+
+
+# 4️⃣ Using Views to Restrict Data Access
+
+Views are an excellent way to **control access to sensitive data** and **hide database complexity** from the end user.
+
+&nbsp;
+
+## 📄 What Are Views?
+
+- A view is a virtual table based on the result set of a SQL query.
+- Views can **select**, **insert**, **update**, or **delete** data (depending on the DBMS and the view definition).
+- They allow you to **restrict access to specific columns or rows** in a table.
+
+&nbsp;
+
+## 🧠 Why Use Views?
+
+- **Shield users** from complex database designs (e.g., joins between normalized tables).
+- **Restrict access** without exposing underlying tables.
+- **Provide a simplified interface** to query complex data structures.
+
+> You can deny a login access to base tables but allow it to read from a view that selects limited data from those tables.
+
+&nbsp;
+
+## ✅ Permissions on Views
+
+- Like tables, views can have permissions:
+  - SELECT
+  - INSERT
+  - UPDATE
+  - DELETE
+- Depending on your RDBMS, **column-level permissions** may also be supported.
+
+&nbsp;
+
+
+### 🔐 Example Use Case
+
+> A user login has no access to `Customer` or `Orders` tables directly  
+> Instead, they can SELECT from a view called `vw_CustomerOrders`  
+> This view returns only non-sensitive fields from both tables joined safely
+
+&nbsp;
+
+
+### 💡 Best Practice
+
+> Always define user logins with **read-only access** to the database  
+> Use views to control and filter what data is exposed  
+> For insert/update scenarios, define **a separate login** with limited write permissions
+
+&nbsp;
+
+
+## 🧩 Stored Procedures vs Views
+
+- Use **views** to expose limited data to read-only users
+- Use **stored procedures** when logic or write access is needed
+- Choose based on:
+  - Type of access required
+  - Security level of the login
+  - Complexity of business logic
+
+---
+
+# 5️⃣ Network Security for Your RDBMS
+This section addresses how to **secure your RDBMS internally** on your organization's network — particularly useful for teams without a dedicated DBA.
+
+&nbsp;
+
+
+## 👤 Authentication Modes Recap
+
+- **Windows Authentication** (Recommended for internal users)
+  - Uses your Windows user account to authenticate.
+  - Passwords are encrypted during transmission.
+  - Access is based on your Windows security group membership.
+  - Inherits your company’s security policies (e.g., password length, expiration).
+  
+> ✅ Stronger security and simpler user administration
+
+- **SQL Server Authentication**
+  - Better suited for **web-based logins or external systems**.
+  - Credentials are managed within the RDBMS.
+
+&nbsp;
+
+
+## 🔐 Benefits of Windows Authentication
+
+- Password policy enforcement (e.g., special characters, expiration)
+- Secure password validation via Windows encryption
+- Automatically applies Windows-based permissions in the RDBMS
+- Centralized access management using **Windows groups**
+
+> Example: If you're part of the `Enterprise Admins` group, and that group is mapped in the RDBMS, you automatically get admin rights.
+
+&nbsp;
+
+
+## 👥 Using Windows Groups
+
+If your RDBMS supports it, define Windows groups in your database:
+
+> Group: `Developers`  
+> Access: Dev and Test Databases  
+> Permissions: Read/Write on Dev, Read-only on Test
+
+Any user in the `Developers` group can log in using Windows Authentication with those exact permissions.
+
+&nbsp;
+
+
+### 🚫 No Windows? No Problem
+
+If you're not using Windows on your network:
+
+- You must rely on **SQL Authentication or platform-native authentication**.
+- Ensure **the RDBMS server is physically and logically secured**:
+  - Only DBAs and authorized developers should access it.
+  - Use strong credentials and audit access.
+
+&nbsp;
+
+
+### ✅ Best Practices
+
+- Use **Windows Authentication** where supported.
+- Avoid using shared SQL accounts with elevated privileges.
+- Manage access through **group policies** instead of individual users.
+- **Limit machine-level access** to database servers.
+
+> [!CAUTION]
+> Never expose your internal database server to unnecessary network segments or unauthorized users.
+
+&nbsp;
+
+
+# 🧑‍💼 Administrator Accounts
+
+Most RDBMSs include a **default administrator account** with full control over the system. For example:
+
+> Microsoft SQL Server ➤ `sa` (System Administrator)
+
+&nbsp;
+
+
+## ⚠️ Security Risks
+
+- In **older versions** (prior to SQL Server 2000), `sa` was created **with no password** by default.
+- Even in newer versions, **no password is required during install** unless explicitly set.
+- Leaving the admin account with default credentials is a **major security vulnerability**.
+
+&nbsp;
+
+
+## ✅ Best Practices
+
+- **Set a strong password** for the admin account during or immediately after installation.
+- **Change any default passwords** that ship with your RDBMS.
+- If possible:
+  > 🔁 Rename the default admin account  
+  > ❌ Remove it entirely (if supported)
+
+- **Limit access** to the admin account to a minimum number of people:
+  - ✅ 1–2 primary RDBMS administrators
+  - ✅ 1 backup (typically a network administrator)
+
+> The fewer people with access, the lower the risk.
+
+&nbsp;
+
+
+### 🔐 Emergency Backup Access
+
+If even backup access needs to be tightly controlled:
+
+> Store the admin password in a secure location, such as a sealed envelope in a company safe.  
+> Access should require executive approval (e.g., MD's key).  
+> The password **must be changed immediately** after such use.
+
+This makes emergency usage traceable and discourages unauthorized access.
+
+---
+
+## 👥 Delegate Without Full Access
+
+- The RDBMS administrator should **create separate logins** for developers or team members.
+- These users can be given **database-level administrative privileges** (not RDBMS-wide).
+- Ideal in development environments where developers need to:
+  > ➕ Add tables  
+  > ✏️ Modify schema  
+  > 🔄 Control their development DB access
+
+&nbsp;
+
+
+### 📌 Summary
+
+Restrict, rename, or remove the default admin account when possible. Use strong passwords, limit access, set up backup protocols, and delegate rights at the database level—not at the server level.
