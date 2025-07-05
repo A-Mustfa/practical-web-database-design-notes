@@ -16,7 +16,7 @@
 	- suppose you have the following *sets* :
 		- Employee name , position, location, salary .
 	- each Employee has only one value of each set .
-	- ![[Employee-table.png]]
+	- ![Employee](../imgs/Employee-table.png)
 	- Row (tuple) = Employee (Real world component) .
 	- column = Properties (attributes) of the things we want to store in the database .
 	- table = relation .
@@ -133,7 +133,8 @@
 	    - A table is in 4NF if it has **no multi-valued dependencies** — i.e., **no column contains a set of values related to a single key**.
 	- **Goal:**
 	    - Ensure that the primary key determines **only single values**, not sets of values (even across rows).
-- ![[normalization.png]]
+- ![normalization](../imgs/normalization.png)
+
 ---
 ### 8. Data Integrity :
 - #### What is it?
