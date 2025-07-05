@@ -1,7 +1,7 @@
 # Chapter 2
 ---
 ### 1. data model :
-- #### what is data model ? ^58c370
+- #### what is data model ? 
 	- it is a formalized method of structuring & manipulating data . 
 	- every data model should define :
 		1. structure : how data is organized (table, rows, columns) .
