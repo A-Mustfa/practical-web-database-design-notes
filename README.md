@@ -48,7 +48,12 @@ This book is for you if:
    - [4. Using Views to restrict data access](/summaries/ch-7/notes/chapter-7-notes.md#4️⃣-using-views-to-restrict-data-access)
    - [5. Using Views to restrict data access](/summaries/ch-7/notes/chapter-7-notes.md#5️⃣-network-security-for-your-rdbms)
 
-
+7. [Chapter 8: Advanced Database Features](/summaries/ch-8/notes/chapter-8-notes.md)
+   - [1. Advanced Quaries](/summaries/ch-8/notes/chapter-8-notes.md#1️⃣-advanced-quaries)
+   - [2. Stored Procedures and Triggers](/summaries/ch-8/notes/chapter-8-notes.md#2️⃣-stored-procedures-and-triggers)
+   - [3. Physical Database Tuning](/summaries/ch-8/notes/chapter-8-notes.md#3️⃣-physical-database-tuning)
+   - [4. Indexes](/summaries/ch-8/notes/chapter-8-notes.md#4️⃣-understanding-indexes-a-practical-view)
+   - [5. Managing Concurrency](/summaries/ch-8/notes/chapter-8-notes.md#5️⃣-managing-concurrency-in-databases)
 
 
 
