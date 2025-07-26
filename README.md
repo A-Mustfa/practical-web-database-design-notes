@@ -55,6 +55,13 @@ This book is for you if:
    - [4. Indexes](/summaries/ch-8/notes/chapter-8-notes.md#4️⃣-understanding-indexes-a-practical-view)
    - [5. Managing Concurrency](/summaries/ch-8/notes/chapter-8-notes.md#5️⃣-managing-concurrency-in-databases)
 
+8. [Chapter 9: Database Maintenance](/summaries/ch-9/notes/Chapter-9-notes.md)
+   - [1. Backup and Restore of Database](/summaries/ch-9/notes/Chapter-9-notes.md##-1.-Backup-&-Restore)
+   - [2. Modifying Tables](/summaries/ch-9/notes/Chapter-9-notes.md##-3.-Modifying-Tables)
+   - [3. Reorganizing Data & Indexes](/summaries/ch-9/notes/Chapter-9-notes.md##-4.-Reorganizing-Data-&-Indexes)
+   - [4. Building Scripts for Production Implementation](/summaries/ch-9/notes/Chapter-9-notes.md##-5.-Building-Scripts-for-Production-Implementation)
+   - [5. When to Perform Database Maintenance](/summaries/ch-9/notes/Chapter-9-notes.md##-6.-When-to-Perform-Database-Maintenance)
+
 
 
      
