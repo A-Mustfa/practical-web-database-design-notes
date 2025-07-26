@@ -56,11 +56,13 @@ This book is for you if:
    - [5. Managing Concurrency](/summaries/ch-8/notes/chapter-8-notes.md#5️⃣-managing-concurrency-in-databases)
 
 8. [Chapter 9: Database Maintenance](/summaries/ch-9/notes/Chapter-9-notes.md)
-   - [1. Backup and Restore of Database](/summaries/ch-9/notes/Chapter-9-notes.md#1-backup--restore-)
-   - [2. Modifying Tables](/summaries/ch-9/notes/Chapter-9-notes.md#2-modifying-tables)
-   - [3. Reorganizing Data & Indexes](/summaries/ch-9/notes/Chapter-9-notes.md#3-reorganizing-data--indexes)
-   - [4. Building Scripts for Production Implementation](/summaries/ch-9/notes/Chapter-9-notes.md#4-building-scripts-for-production-implementation)
-   - [5. When to Perform Database Maintenance](/summaries/ch-9/notes/Chapter-9-notes.md#5-when-to-perform-database-maintenance)
+   - [1. Backup & Restore](/summaries/ch-9/notes/Chapter-9-notes.md#1-backup--restore)
+   - [2. Restoring Database](/summaries/ch-9/notes/Chapter-9-notes.md#2-restoring-database)
+   - [3. Modifying Tables](/summaries/ch-9/notes/Chapter-9-notes.md#3-modifying-tables)
+   - [4. Reorganizing Data & Indexes](/summaries/ch-9/notes/Chapter-9-notes.md#4-reorganizing-data--indexes)
+   - [5. Building Scripts for Production Implementation](/summaries/ch-9/notes/Chapter-9-notes.md#5-building-scripts-for-production-implementation)
+   - [6. When to Perform Database Maintenance](/summaries/ch-9/notes/Chapter-9-notes.md#6-when-to-perform-database-maintenance)
+
 
 
 
