@@ -25,7 +25,7 @@ In some environments, **developers** might be responsible for performing databas
 
 ---
 
-## 1️⃣ Backup & Restore
+## 1. Backup & Restore
 
 Backup and restore are essential not only for **software or hardware failures** but also for preventing data loss caused by **human mistakes** during development.
 
